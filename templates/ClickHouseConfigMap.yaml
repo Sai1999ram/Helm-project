@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: clickhouse-config
+data:
+  clickhouse-config.xml: |
+    <yandex>
+      <!-- Other ClickHouse configurations here -->
+      <table_dz_test>
+        <table_type>MergeTree</table_type>
+        <partition_key>D</partition_key>
+        <order_by>B</order_by>
+      </table_dz_test>
+    </yandex>
+  clickhouse-init.sql: |
+    CREATE TABLE dz_test
+    (
+        `B` Int64,
+        `T` String,
+        `D` Date
+    )
+    ENGINE = MergeTree
+    PARTITION BY D
+    ORDER BY B;
+
+    INSERT INTO dz_test SELECT number, number, '2023-01-01' FROM numbers(1000000000);

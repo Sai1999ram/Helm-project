@@ -1,0 +1,6 @@
+clickhouse:
+  image: <clickhouse_image>
+  hotStorageSize: 5Gi
+  coldStorageSize: 10Gi
+  dataMovementImage: <data_movement_image>
+  moveFactor: 0.2

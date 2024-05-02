@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "clickhouse.fullname" . }}-data-movement-job
+spec:
+  template:
+    metadata:
+      name: {{ include "clickhouse.fullname" . }}-data-movement-pod
+    spec:
+      containers:
+      - name: data-movement-container
+        image: {{ .Values.clickhouse.dataMovementImage }}
+        command: ["<command_to_run>"]
+      restartPolicy: OnFailure
